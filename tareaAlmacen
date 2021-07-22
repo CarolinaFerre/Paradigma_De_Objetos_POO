@@ -253,6 +253,7 @@ public class Almacen2 {
     public boolean ponValor(int num) {
         boolean colocado = false;
         if (!this.estaLleno()) {
+	//Arrays.binarySearch método que se usa para buscar un elemento en un array
             int pos = Arrays.binarySearch(this.tvalores, 0, this.valoresAlmacenados, num);
             if (pos < 0) {
                 pos = pos * -1 - 1;
