@@ -1,0 +1,81 @@
+/*Ejercicios sobre clases y objetos
+1. Crear una clase PilaEnteros que implemente una pila ( LIFO Último en entrar es el primero en salir)  de números enteros. Para la implementación se utilizará un array de enteros de tamaño fijo que se define cuando se crea el objeto, y un contador que me indica el número de valores introducidos y la posición del siguiente valor a almacenar.
+
+La clase tendrá los siguientes métodos:
+•	PilaEnteros (int tamaño) Crea un pila fijando el tamaño máximo.
+•	push(int valor) Introduce un entero en la lista. Devuelve verdadero si cabe o falso si la tabla está llena.
+•	pop()  Extrae un entero (el último que se ha introducido) de la lista y lo devuelve de la lista, si no hay ningún número devuelve -1;
+•	peek() Devuelve el último entero introducido pero sin eliminarlo o -1 si no hay ningún número almacenado.
+•	estaLleno() Devuelve verdadero si la capacidad array está completo.
+•	estaVacio() Devuelve verdadero si la pila está vacía.
+
+*/
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class PilaEnteros {
+static Scanner sc=new Scanner(System.in);
+static int contador;
+static int posicionSiguiente;
+static boolean lleno;
+private static int tamaño;
+private static int valor;
+private int valoresIntroducidos;
+	public PilaEnteros() {
+		this.valoresIntroducidos=0;
+		
+		
+	}
+	
+	public void push(int[]pila) {
+		
+		System.out.println("Introduce un valor");
+		
+		for(int i=0;i<=pila.length-1;i++) {
+		if(pila[i]==0) {
+				pila[i]=sc.nextInt();
+			
+		}else {
+			pila[i]=pila[i];
+			}
+		++this.valoresIntroducidos;
+		}
+		System.out.println(Arrays.toString(pila));
+	}
+	
+	public void pop() {
+		
+	}
+	public void peek(int[]pila) {
+		
+			int numero=pila[pila.length-1];
+		System.out.println("El último número introducido es= "+numero);
+	}
+	public boolean estaLleno(int[]pila) {
+		
+		if(this.valoresIntroducidos==pila.length) {
+			return lleno=true;
+		}
+		return lleno=false;
+	}
+	public boolean estaVacio(int[]pila) {
+		boolean vacia;
+		if((this.valoresIntroducidos==0)&&(pila.length==0)) {
+			return vacia=true;
+		}
+		return vacia=false;
+	}
+
+	public static void main(String[] args) {
+		int[]pila= {0,0,0,0,0,0};
+		PilaEnteros array=new PilaEnteros();
+	
+		array.push(pila);
+		array.peek(pila);
+		System.out.println("La pila está llena [true si es cierto y false si es falso ] "+array.estaLleno(pila));
+		System.out.println("La pila está vacía [true si es cierto y false si es falso ] "+array.estaVacio(pila));
+	}
+
+}
