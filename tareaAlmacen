@@ -14,28 +14,13 @@ Ejemplos de implementaciones:
 
 x		x	x		x	x		x	
 
-2. Tabla dos zonas: zona ocupada y zona libre Con un contador que indica cual es la última posición libre, o el número de elementos almacenados. Podemos añadir siempre al final de la zona ocupada o insertar en orden para mantener siempre la tabla ordenada. Cuando eliminamos un elemento desplazamos para que no haya huecos.
 
-x	x	x	x	x	x				
-      NumElementos = 7
-
-Otros implementaciones:
-
-3. La Tabla gestionada como una Cola. Se mantiene el orden cronológico de entrada y salida de datos: ( FIFO, first input, first output) El primero en entrar es primero en salir.
-
-El primer elemento que se guarda es el primero que se debe eliminar
-
-4. La Tabla gestionada como una Pila. Se mantiene un orden inverso de entrada y salida:  (LIFO, Less input first output)  Último en entrar es el primero en salir.
-
-El último elemento que se guarda es el primero que se debe eliminar.
 
 DESCRIPCIÓN DEL EJERCICIO
 
 Realizar una de los tipos de  clases  Almacen1 y Almacen2
 
 Almacen1: Suponer que trabajamos con una tabla de huecos, donde la posición libre se indica con el valor 0
-
-Almacen2: Suponer que trabajamos con una tabla con dos zonas, donde guardamos en una zona los datos  almacenados y el resto serían posiciones libres.
 
 Codificar la clase Almacén utilizando los siguientes atributos e implementar los métodos definidos en la definición de la clase siguiente. Completar la clase TestAlmacen para probar la clase codificada.
 */
@@ -194,3 +179,117 @@ private int valoresAlmacenados;
 	}
 
 }
+
+
+//***********************************************************************************************
+
+//ALMACÉN 2:
+
+El ejercicio trata de definir una clase Almacén que ofrezca los métodos básicos utilizando en su implementación un array unidimensional o vector.
+
+Ejemplos de implementaciones:
+
+2. Tabla dos zonas: zona ocupada y zona libre Con un contador que indica cual es la última posición libre, o el número de elementos almacenados. Podemos añadir siempre al final de la zona ocupada o insertar en orden para mantener siempre la tabla ordenada. Cuando eliminamos un elemento desplazamos para que no haya huecos.
+
+x	x	x	x	x	x				
+      NumElementos = 7
+
+Otros implementaciones:
+
+3. La Tabla gestionada como una Cola. Se mantiene el orden cronológico de entrada y salida de datos: ( FIFO, first input, first output) El primero en entrar es primero en salir.
+
+El primer elemento que se guarda es el primero que se debe eliminar
+
+4. La Tabla gestionada como una Pila. Se mantiene un orden inverso de entrada y salida:  (LIFO, Less input first output)  Último en entrar es el primero en salir.
+
+El último elemento que se guarda es el primero que se debe eliminar.
+
+Almacen2: Suponer que trabajamos con una tabla con dos zonas, donde guardamos en una zona los datos  almacenados y el resto serían posiciones libres.
+
+
+import java.util.Arrays;
+
+public class Almacen2 {
+    private int[] tvalores;
+    private int valoresAlmacenados;
+
+    public Almacen2() {
+        this(10);
+    }
+
+    public Almacen2(int tamaño) {
+        this.valoresAlmacenados = 0;
+        this.tvalores = new int[tamaño];
+        this.valoresAlmacenados = 0;
+    }
+
+    public String toString() {
+        StringBuilder resu = new StringBuilder("{");
+
+        for(int i = 0; i < this.valoresAlmacenados; ++i) {
+            if (i > 0) {
+                resu.append(",");
+            }
+
+            resu.append(this.tvalores[i]);
+        }
+
+        resu.append('}');
+        return resu.toString();
+    }
+
+    public int numPosicionesLibres() {
+        return this.tvalores.length - this.valoresAlmacenados;
+    }
+
+    public int numPosicionesOcupadas() {
+        return this.valoresAlmacenados;
+    }
+
+    public boolean estaValor(int num) {
+        return Arrays.binarySearch(this.tvalores, 0, this.valoresAlmacenados, num) >= 0;
+    }
+
+    public boolean ponValor(int num) {
+        boolean colocado = false;
+        if (!this.estaLleno()) {
+            int pos = Arrays.binarySearch(this.tvalores, 0, this.valoresAlmacenados, num);
+            if (pos < 0) {
+                pos = pos * -1 - 1;
+            }
+
+            for(int i = this.valoresAlmacenados; i > pos; --i) {
+                this.tvalores[i] = this.tvalores[i - 1];
+            }
+
+            this.tvalores[pos] = num;
+            ++this.valoresAlmacenados;
+            colocado = true;
+        }
+
+        return colocado;
+    }
+
+    public boolean sacarValor(int num) {
+        boolean eliminado = false;
+        int pos = Arrays.binarySearch(this.tvalores, 0, this.valoresAlmacenados, num);
+        if (pos >= 0) {
+            for(int i = pos; i < this.valoresAlmacenados - 1; ++i) {
+                this.tvalores[i] = this.tvalores[i + 1];
+            }
+
+            --this.valoresAlmacenados;
+            eliminado = true;
+        }
+
+        return eliminado;
+    }
+
+    public boolean estaLleno() {
+        return this.valoresAlmacenados == this.tvalores.length;
+    }
+
+    public void empaquetar() {
+    }
+}
+
