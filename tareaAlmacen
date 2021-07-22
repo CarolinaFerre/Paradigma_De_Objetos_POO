@@ -43,7 +43,6 @@ Codificar la clase Almacén utilizando los siguientes atributos e implementar lo
 
 
 
-
 package ejercicioAlmacen;
 import java.util.Arrays;
 import java.util.InputMismatchException;
@@ -54,20 +53,27 @@ public class Almacen {
 static int libre=0;
 static boolean ocupado;
 static int cantidad;
-static int[]almacen;
-
-	public Almacen() {
-		
+static int[] almacen;
+static int contadorposiciones;
+static int contadorlibres;
+private int tamaño;
+private int valoresAlmacenados;
+	public Almacen(int tamaño) {
+		this.tamaño=10;
+		this.valoresAlmacenados=0;
 	}
+	
 	public void ponerDatos() {
+		almacen=new int[tamaño];
 		System.out.println("Introduce datos para almacenar en nuestro almacén...");
-		almacen=new int[10];
+		
 		for (int i=0;i<almacen.length;i++){
 			if (almacen[i]==libre){
 				almacen[i]=sc.nextInt();
 			}else {
 				almacen[i]=almacen[i];
 			}
+			++this.valoresAlmacenados;
 		}
 		System.out.println(Arrays.toString(almacen));
 	}
@@ -83,6 +89,8 @@ static int[]almacen;
 			}
 		}
 	}
+	
+
 	public void sacarDatos() {
 			System.out.println("Introduce el dato a dar de baja en nuestro almacén");
 			int numero=sc.nextInt();
@@ -92,9 +100,28 @@ static int[]almacen;
 				}else {
 					System.out.println("No se encuentra la información solicitada en nuestras bases de datos, disculpe las molestias");
 				}
+				--this.valoresAlmacenados;
 			}
 			System.out.println("Tras la modificación la información del almacén quedaría así:");
 			System.out.println(Arrays.toString(almacen));
+	}
+	public int posicionesLibres() {
+		contadorlibres=0;
+		for (int i=0;i<almacen.length;i++) {
+			if (almacen[i]==0){
+				contadorlibres++;
+			}
+		}
+		return contadorlibres;
+	}
+	public int posicionesOcupadas() {
+		contadorposiciones=0;
+		for(int i=0;i<almacen.length;i++) {
+			if(almacen[i]!=0) {
+				contadorposiciones++;
+			}
+		}
+		return contadorposiciones;
 	}
 	public void modificarDatos() {
 		System.out.println("Introduce el dato de nuestro almacén a modificar..., recuerda que tienen que ser datos numéricos");
@@ -130,24 +157,40 @@ static int[]almacen;
 				Libre=false;
 				System.out.println("¿El almacén está vacío?: "+Libre);
 			}
+			this.valoresAlmacenados=0;
 		}
 		System.out.println("Tras vaciar el almacén quedó así: ");
 		System.out.println(Arrays.toString(almacen));
 	}
+	public boolean estaLleno() {
+        return this.valoresAlmacenados == this.almacen.length;
+    }
 
 	public static void main(String[] args) {
 		System.out.println("Bienvenido al almacén");
-		Almacen almacen1=new Almacen();
+		Almacen almacen1=new Almacen(10);
 		try {
 		almacen1.ponerDatos();
+		System.out.println("El array está lleno [true si es si o false si es no ] "+almacen1.estaLleno());
 		almacen1.BuscarDatos();
 		almacen1.sacarDatos();
+		almacen1.sacarDatos();
+		almacen1.sacarDatos();
+		System.out.println("El array está lleno [true si es si o false si es no ] "+almacen1.estaLleno());
+		System.out.println("El número de posiciones libres es= "+almacen1.posicionesLibres());
+		System.out.println("El número de posiciones ocupadas es= "+almacen1.posicionesOcupadas());
+		
+		
 		almacen1.modificarDatos();
 		}catch(InputMismatchException exc) {
 			System.out.println("No se ha podido realizar la solicitud ya que ha introducido un caracter no numérico ");
 		}
+		
 		almacen1.ordenarAlmacen();
 		almacen1.vaciarAlmacen();
+		System.out.println("El array está lleno [true si es si o false si es no ] "+almacen1.estaLleno());
+		
+		
 	}
 
 }
