@@ -1,0 +1,117 @@
+/*Escriba una clase que represente una película en DVD de nombre DVDCine
+ * con los atributos necesarios para mostrar la ficha que se recoge en el apartado segundo.
+ * Esta clase contará con un constructor que admite como argumentos todos los atributos de la clase.
+ * Escriba los siguientes métodos para la clase DVDCine:
+ * 
+ * .MuestraDVDCine: este método retorna una descripción completa de la película, por ejemplo:
+ * La vida de Adéle (La vie d'Adele)
+ * De: Abdellatif Kechiche
+ * Con: Adéle Exarchopoulos y Léa Seydoux
+ * Romance -180 min.
+ * Resumen: Adéle (Adéle Exarchopoulos) tiene quince años y sabe que lo normal es...
+ * 
+ * Este método debe usar el método muestraDuracion:
+ * .esTriller: Este método retorna cierto(true), si la película pertenece a ese género cinematográfico.
+ * .tieneResumen: retorna la duración con el siguiente formato: 114 min.
+ * .Escribir una aplicación que solicite los datos de la película, genere un objeto DVD y muestre este con el formato
+ * del apartado segundo.
+ * Pruebe igualmente los métodos esThriller y tieneResumen. */
+ 
+
+
+package ejercicioobjetos;
+
+import java.util.Scanner;
+
+public class DVDCine {
+	static Scanner sc=new Scanner(System.in);
+	//atributos
+	private static String titulo;
+	private static String director;
+	private static String actores;
+	private static String genero;
+	private static int duracion;
+	private static String resumen;
+	
+	//variables estáticas
+	static boolean esThriller;
+	static boolean escrito;
+	
+	//constructor con atributos por argumento
+	public DVDCine(String titulo,String director,String actores,String genero,int duracion,String resumen) {
+		this.titulo=titulo;
+		this.director=director;
+		this.actores=actores;
+		this.genero=genero;
+		this.duracion=duracion;
+		this.resumen=resumen;
+	}
+	
+	public void getMuestraDVDCine(String titulo,String director,String actores,String genero,int duracion,String resumen) {
+		System.out.println("Título:"+this.titulo);
+		System.out.println("Director:"+this.director);
+		System.out.println("Reparto:"+this.actores);
+		System.out.println("Género:"+this.genero);
+		System.out.println("Duración:"+this.duracion+" min.");
+		System.out.println("Sinopsis:"+this.resumen);
+	}
+	public boolean esThriller(String genero,boolean esThriller) {
+		if((genero.equals("Thriller"))||(genero.equals("THRILLER"))){
+			return esThriller=true;
+		}
+		return esThriller=false;
+	}
+	public boolean tieneResumen(String resumen, boolean escrito) {
+		if(resumen.length()>0) {
+			return escrito=true;
+		}
+		return escrito=false;
+	}
+	public int setDuracion(int duracion) {
+		this.duracion=114;
+		return this.duracion;
+	}
+
+	public static void main(String[] args) {
+		//Creación del objeto
+				DVDCine DVD=new DVDCine(titulo,director,actores,genero,duracion,resumen);
+		//Recogida de datos
+		System.out.println("BIENVENIDO A LA FICHA DE PELIS");
+		System.out.println("******************************");
+		System.out.println("Recogida de datos:");
+		System.out.println("Introduzca el título de la película");
+		titulo=sc.nextLine();
+		System.out.println("Introduzca director o directores de la película");
+		director=sc.nextLine();
+		System.out.println("Introduzca reparto de la película");
+		actores=sc.nextLine();
+		System.out.println("Introduzca el género de la película");
+		genero=sc.nextLine();
+		System.out.println("Introduzca sinopsis");
+		resumen=sc.nextLine();
+		System.out.println("Introduzca duración de la película");
+		duracion=sc.nextInt();
+		
+		
+		System.out.println();
+		
+		//métodos
+		System.out.println("*********************************************************");
+		System.out.println();
+		DVD.getMuestraDVDCine(titulo, director, actores, genero, duracion, resumen);
+		System.out.println();
+		System.out.println("*********************************************************");
+		System.out.println();
+		System.out.println("A continuación se muestra si la película es un thriller [true] o no [false] "+DVD.esThriller(genero, esThriller));
+		System.out.println();
+		System.out.println("*********************************************************");
+		System.out.println();
+		System.out.println("A continuación se muestra si el resumen de la película está escrito [true] o no [false] "+DVD.tieneResumen(resumen, escrito));
+		System.out.println();
+		System.out.println("*********************************************************");
+		System.out.println();
+		System.out.println("Ha habido una modificación de la duración de la película, la duración actual es= "+DVD.setDuracion(duracion)+" min.");
+		
+	}
+
+}
