@@ -1,0 +1,153 @@
+/*EJERCICIO  CLASE ALMACÉN / CONTENEDOR
+IMPLEMENTACIÓN UTILIZANDO  ARRAYS
+
+
+En programación es muy habitual tener que guardar valores   que se van generando periódicamente y que posteriormente tenemos que recuperarlos, eliminarlos, comprobar si están, etc.
+
+Operaciones habituales sobre un almacén de datos: Poner, Sacar, Buscar, Vaciar, Modificar, Ordenar
+
+El ejercicio trata de definir una clase Almacén que ofrezca los métodos básicos utilizando en su implementación un array unidimensional o vector.
+
+Ejemplos de implementaciones:
+
+1. Tabla con huecos, donde existe un valor que indica que la posición está libre. Las posiciones se van ocupando y liberando según entrar y salen valores.
+
+x		x	x		x	x		x	
+
+2. Tabla dos zonas: zona ocupada y zona libre Con un contador que indica cual es la última posición libre, o el número de elementos almacenados. Podemos añadir siempre al final de la zona ocupada o insertar en orden para mantener siempre la tabla ordenada. Cuando eliminamos un elemento desplazamos para que no haya huecos.
+
+x	x	x	x	x	x				
+      NumElementos = 7
+
+Otros implementaciones:
+
+3. La Tabla gestionada como una Cola. Se mantiene el orden cronológico de entrada y salida de datos: ( FIFO, first input, first output) El primero en entrar es primero en salir.
+
+El primer elemento que se guarda es el primero que se debe eliminar
+
+4. La Tabla gestionada como una Pila. Se mantiene un orden inverso de entrada y salida:  (LIFO, Less input first output)  Último en entrar es el primero en salir.
+
+El último elemento que se guarda es el primero que se debe eliminar.
+
+DESCRIPCIÓN DEL EJERCICIO
+
+Realizar una de los tipos de  clases  Almacen1 y Almacen2
+
+Almacen1: Suponer que trabajamos con una tabla de huecos, donde la posición libre se indica con el valor 0
+
+Almacen2: Suponer que trabajamos con una tabla con dos zonas, donde guardamos en una zona los datos  almacenados y el resto serían posiciones libres.
+
+Codificar la clase Almacén utilizando los siguientes atributos e implementar los métodos definidos en la definición de la clase siguiente. Completar la clase TestAlmacen para probar la clase codificada.
+*/
+
+
+
+
+
+package ejercicioAlmacen;
+import java.util.Arrays;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Almacen {
+	static Scanner sc=new Scanner (System.in);
+static int libre=0;
+static boolean ocupado;
+static int cantidad;
+static int[]almacen;
+
+	public Almacen() {
+		
+	}
+	public void ponerDatos() {
+		System.out.println("Introduce datos para almacenar en nuestro almacén...");
+		almacen=new int[10];
+		for (int i=0;i<almacen.length;i++){
+			if (almacen[i]==libre){
+				almacen[i]=sc.nextInt();
+			}else {
+				almacen[i]=almacen[i];
+			}
+		}
+		System.out.println(Arrays.toString(almacen));
+	}
+	public void BuscarDatos() {
+
+		System.out.println("Introduce el dato a buscar en nuestro almacén...");
+		int numero=sc.nextInt();
+		for (int i=0;i<almacen.length;i++) {
+			if (almacen[i]==numero){
+				System.out.println("El dato solicitado es= "+almacen[i]);
+			}else {
+				System.out.println("No se encuentra la información solicitada en nuestras bases de datos, disculpe las molestias");
+			}
+		}
+	}
+	public void sacarDatos() {
+			System.out.println("Introduce el dato a dar de baja en nuestro almacén");
+			int numero=sc.nextInt();
+			for(int i=0;i<almacen.length;i++) {
+				if(almacen[i]==numero) {
+					almacen[i]=libre;
+				}else {
+					System.out.println("No se encuentra la información solicitada en nuestras bases de datos, disculpe las molestias");
+				}
+			}
+			System.out.println("Tras la modificación la información del almacén quedaría así:");
+			System.out.println(Arrays.toString(almacen));
+	}
+	public void modificarDatos() {
+		System.out.println("Introduce el dato de nuestro almacén a modificar..., recuerda que tienen que ser datos numéricos");
+		int numero=sc.nextInt();
+		System.out.println("Ahora introduce la modificación que quieres hacer de ese dato, recuerda que tienen que ser datos numéricos");
+		int numero2=sc.nextInt();
+		for(int i=0;i<almacen.length;i++) {
+			if(almacen[i]==numero) {
+				almacen[i]=numero2;
+			}
+		}
+		System.out.println("Tras la modificación la información del almacén quedaría así:");
+		System.out.println(Arrays.toString(almacen));
+	}
+	public void ordenarAlmacen() {
+		
+		System.out.println("A continuación se muestra el almacén ordenado de menor a mayor: ");
+		//La función sort ordena de menor a mayor un array
+		Arrays.sort(almacen);
+		System.out.println(Arrays.toString(almacen));
+	}
+	public void vaciarAlmacen() {
+		System.out.println("Vamos a vaciar el stock de nuestro almacén");
+		for(int i=0;i<almacen.length;i++) {
+			if(almacen[i]==almacen[i]) {
+				almacen[i]=libre;
+			}
+			boolean Libre;
+			if(almacen[i]==libre) {
+				Libre=true;
+				System.out.println("¿El almacén está vacío?: "+Libre);
+			}else {
+				Libre=false;
+				System.out.println("¿El almacén está vacío?: "+Libre);
+			}
+		}
+		System.out.println("Tras vaciar el almacén quedó así: ");
+		System.out.println(Arrays.toString(almacen));
+	}
+
+	public static void main(String[] args) {
+		System.out.println("Bienvenido al almacén");
+		Almacen almacen1=new Almacen();
+		try {
+		almacen1.ponerDatos();
+		almacen1.BuscarDatos();
+		almacen1.sacarDatos();
+		almacen1.modificarDatos();
+		}catch(InputMismatchException exc) {
+			System.out.println("No se ha podido realizar la solicitud ya que ha introducido un caracter no numérico ");
+		}
+		almacen1.ordenarAlmacen();
+		almacen1.vaciarAlmacen();
+	}
+
+}
