@@ -1,0 +1,203 @@
+
+
+/*
+EJERCICIO SOBRE POO EN JAVA - III
+
+Se desea implementar una clase denominada Coche que codifique el funcionamiento básico de una vehículo. Para ello se definen los siguientes atributos y métodos
+
+Atributos: Todos privados
+     
+Atributos de instancia:
+•	Modelo:  Una cadena con el modelo de vehículo.
+•	Distancia Total: Total de kilómetros recorridos
+•	Distancia Parcial: Total de kilómetros desde que el coche se ha arrancado
+•	Motor: Arrancado o parado ( true / false)
+•	Velocidad: Un entero con la velocidad en km/h
+•	VelocidadMax : Máxima velocidad con la que puede circular el vehiculo  
+   
+Métodos:
+1)  Constructor: donde se indica el Modelo del coche y el máximo de velocidad, el resto de atributos se inicial izan  a cero con el motor apagado
+
+2)  Arrancar: Activa el motor.
+
+3) Parar: Para el motor y pone el contador parcial a 0 km y la velocidad a 0
+
+4) Acelera: Incrementa la velocidad en un cantidad
+
+5) Frena: Decrementa la velocidad en un cantidad
+
+6) Recorre: Incrementa los kilómetros en la velocidad que lleve el coche
+
+6) Info: Muestra el modelo, la velocidad actual, el estado, kilómetros parciales y totales
+
+7) getKilometros : Me devuelve la distancia recorrida desde que se arranco.
+
+8) infoError es un método privado que muestra por la salida estándar de errores que se ha intentado realizar una operación errónea sobre el coche.  System.err.println
+
+Condiciones a cumplir:
+
+1) No se puede arrancar el coche si  ya se ha arrancado.
+2) No se puede superar la velocidad máxima
+3) No se puede frenar si la velocidad es 0
+4) No se puede parar si el coche ya está parado
+5) Si el coche esta parado no se puede frenar, acelerar o recorrer
+
+Si no se cumple la condiciones los método implicados devolverán false indicando que la operación no se ha podido realizar y  llamarán a infoError para que escriba un mensaje informativo.
+
+*/
+import java.util.Scanner;
+public class Coche {
+	
+
+	static Scanner sc=new Scanner(System.in);
+	private String modelo="";
+	private int distanciaTotal=0;
+	private boolean motor=false;
+	private int velocidad=0;
+	private int VelocidadMax=0;
+	static int contadorParcial=0;
+	static boolean acelera;
+	static boolean frena;
+	static int km=0;
+	static int kmsRecorridos=0;
+	
+	
+	//constructor que nos da los datos del modelo y velocidad máxima 
+	public Coche() {
+		this.modelo="Renault";
+		this.distanciaTotal=distanciaTotal;
+		this.motor=motor;
+		this.velocidad=velocidad;
+		this.VelocidadMax=372;
+		
+	}
+
+	//Se arranca el motor del coche
+	public void Arrancar() {
+		if(motor==false) {
+			
+			this.motor=true;
+			System.out.println("El vehículo está arrancado");
+		}else {
+			System.out.println("El motor ya está encendido");
+		}
+	}
+	//Para el motor y pone a 0 el contador parcial y la velocidad
+	public void Parar() {
+		if(motor==true) {
+			
+			this.motor=false;
+			System.out.println("El vehículo está apagado");
+			this.velocidad=0;
+			contadorParcial=0;
+			System.out.println("Se apaga el motor ,se pone la velocidad a "+velocidad+" km y el contador parcial a "+contadorParcial+" km");
+			
+		}else {
+			System.err.println("El motor ya está apagado");
+		}
+	}
+	public void Acelera() {
+		if(motor==true) {
+			System.out.println("Introduzca la velocidad que va a acelerar");
+			km=sc.nextInt();
+			if(km>this.velocidad) {
+				if(km<=VelocidadMax) {
+					this.velocidad=km;
+					distanciaTotal+=this.velocidad;
+					contadorParcial+=this.velocidad;
+				
+				}else {
+						System.err.println("Ha superado la velocidad máxima permitida por el vehículo,no se puede hacer la aceleración");
+				}
+				
+			}else {
+				System.err.println("Para poder acalerar la velocidad debe ser superior a la que está usando");
+			}
+		}else {
+				System.err.println("Usted no puede acelerar porque el motor está apagado");
+		}
+	}
+	public void Frenar() {
+		if(motor==true) {
+			System.out.println("Introduzca la velocidad que va a frenar");
+			km=sc.nextInt();
+			if(km<this.velocidad) {
+				this.velocidad=km;
+				distanciaTotal-=this.velocidad;
+				contadorParcial-=this.velocidad;
+				
+			}else {
+				System.err.println("Para poder frenar la velocidad debe ser inferior a la que está usando");
+			}
+		}else {
+				System.err.println("Usted no puede frenar porque el motor está apagado");
+		}
+	}
+	public void kmsRecorridos() {
+		System.out.println("Introduzca los kms que va a recorrer con esta velocidad");
+		kmsRecorridos=sc.nextInt();
+		distanciaTotal+=kmsRecorridos;
+		contadorParcial+=kmsRecorridos;
+	}
+	
+	public void info() {
+		System.out.println("FICHA DE FORMULA 1");
+		System.out.println("Modelo: "+this.modelo);
+		System.out.println("La velocidad actual del vehículo es: "+this.velocidad);
+		System.out.println("El estado actual del vehículo es [arrancado TRUE, apagado FALSE]: "+motor);
+		System.out.println("Los kms totales recorridos por el vehículo son: "+distanciaTotal);
+		System.out.println("Los km parciales del vehículo son: "+contadorParcial);
+	}
+
+	public static void main(String[] args) {
+		
+		//Creación de objeto deportivo
+		int opcion=0;
+		int contador=0;
+		Coche Formula1=new Coche();
+		
+		System.out.println("BIENVENIDO A LA FORMULA1 ");
+		System.out.println("Elija lo que quiere hacer con su coche");
+		System.out.println("1. Arrancar");
+		System.out.println("2. Apagar motor");
+		System.out.println("3. Acelerar");
+		System.out.println("4. Frenar");
+		System.out.println("5.Recorrer kms");
+		System.out.println("6. Mostrar información");
+		while(opcion!=6) {
+		opcion=sc.nextInt();
+		
+		
+			switch(opcion) {
+			case 1:
+				Formula1.Arrancar();
+				
+				break;
+			case 2:
+				Formula1.Parar();
+				
+				break;
+			case 3:
+				Formula1.Acelera();
+				
+				break;
+			case 4:
+				Formula1.Frenar();
+				
+				break;
+			case 5:
+				Formula1.kmsRecorridos();
+				
+				break;
+			case 6:
+				Formula1.info();
+
+				break;
+			default:
+				System.err.println("Opción no válida");
+				
+			}
+		}
+	}
+
+}
