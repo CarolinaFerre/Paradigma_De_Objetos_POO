@@ -1,5 +1,4 @@
 
-
 /*
 EJERCICIO SOBRE POO EN JAVA - III
 
@@ -93,12 +92,15 @@ public class Coche {
 			System.out.println("Se apaga el motor ,se pone la velocidad a "+velocidad+" km y el contador parcial a "+contadorParcial+" km");
 			
 		}else {
-			System.err.println("El motor ya está apagado");
+			infoError("El motor ya está apagado");
 		}
 	}
+	
+	//Método que fija la velocidad por hora que establece el usuario cuando acelera
+	
 	public void Acelera() {
 		if(motor==true) {
-			System.out.println("Introduzca la velocidad que va a acelerar");
+			System.out.println("Introduzca la velocidad por h que va a acelerar");
 			km=sc.nextInt();
 			if(km>this.velocidad) {
 				if(km<=VelocidadMax) {
@@ -107,19 +109,22 @@ public class Coche {
 					contadorParcial+=this.velocidad;
 				
 				}else {
-						System.err.println("Ha superado la velocidad máxima permitida por el vehículo,no se puede hacer la aceleración");
+						infoError("Ha superado la velocidad máxima permitida por el vehículo,no se puede hacer la aceleración");
 				}
 				
 			}else {
-				System.err.println("Para poder acalerar la velocidad debe ser superior a la que está usando");
+				infoError("Para poder acalerar la velocidad debe ser superior a la que está usando");
 			}
 		}else {
-				System.err.println("Usted no puede acelerar porque el motor está apagado");
+				infoError("Usted no puede acelerar porque el motor está apagado");
 		}
 	}
+	
+	//Método que fija la velocidad por h que establece el usuario cuando frena
+	
 	public void Frenar() {
 		if(motor==true) {
-			System.out.println("Introduzca la velocidad que va a frenar");
+			System.out.println("Introduzca la velocidad por h que va a frenar");
 			km=sc.nextInt();
 			if(km<this.velocidad) {
 				this.velocidad=km;
@@ -127,19 +132,33 @@ public class Coche {
 				contadorParcial-=this.velocidad;
 				
 			}else {
-				System.err.println("Para poder frenar la velocidad debe ser inferior a la que está usando");
+				infoError("Para poder frenar la velocidad debe ser inferior a la que está usando");
 			}
 		}else {
-				System.err.println("Usted no puede frenar porque el motor está apagado");
+				infoError("Usted no puede frenar porque el motor está apagado");
 		}
 	}
+	
+	//km recorridos por h con la velocidad que lleva el usuario
+	
 	public void kmsRecorridos() {
-		System.out.println("Introduzca los kms que va a recorrer con esta velocidad");
-		kmsRecorridos=sc.nextInt();
-		distanciaTotal+=kmsRecorridos;
-		contadorParcial+=kmsRecorridos;
+		if(motor==true) {
+		distanciaTotal+=this.velocidad;
+		contadorParcial+=this.velocidad;
+		}else {
+			infoError(" Motor parado. No se puede avanzar ");
+			
+		}
 	}
 	
+	//Mensajes de error
+	
+	  private void infoError( String mensaje){
+		   System.err.println(mensaje);
+	  }
+	
+	  //Ficha con toda la información del vehículo
+	  
 	public void info() {
 		System.out.println("FICHA DE FORMULA 1");
 		System.out.println("Modelo: "+this.modelo);
@@ -156,13 +175,15 @@ public class Coche {
 		int contador=0;
 		Coche Formula1=new Coche();
 		
+		//Menú de acción 
+		
 		System.out.println("BIENVENIDO A LA FORMULA1 ");
 		System.out.println("Elija lo que quiere hacer con su coche");
 		System.out.println("1. Arrancar");
 		System.out.println("2. Apagar motor");
 		System.out.println("3. Acelerar");
 		System.out.println("4. Frenar");
-		System.out.println("5.Recorrer kms");
+		System.out.println("5. Recorrer kms");
 		System.out.println("6. Mostrar información");
 		while(opcion!=6) {
 		opcion=sc.nextInt();
