@@ -1,4 +1,5 @@
 
+
 /*
 EJERCICIO SOBRE POO EN JAVA - III
 
@@ -50,7 +51,7 @@ public class Coche {
 
 	static Scanner sc=new Scanner(System.in);
 	private String modelo="";
-	private int distanciaTotal=0;
+	static  int distanciaTotal=0;
 	private boolean motor=false;
 	private int velocidad=0;
 	private int VelocidadMax=0;
@@ -59,15 +60,16 @@ public class Coche {
 	static boolean frena;
 	static int km=0;
 	static int kmsRecorridos=0;
+	static int meta=800;
 	
 	
 	//constructor que nos da los datos del modelo y velocidad máxima 
-	public Coche() {
-		this.modelo="Renault";
+	public Coche(String modelo,int VelocidadMax) {
+		this.modelo=modelo;
 		this.distanciaTotal=distanciaTotal;
 		this.motor=motor;
 		this.velocidad=velocidad;
-		this.VelocidadMax=372;
+		this.VelocidadMax=VelocidadMax;
 		
 	}
 
@@ -98,15 +100,15 @@ public class Coche {
 	
 	//Método que fija la velocidad por hora que establece el usuario cuando acelera
 	
-	public void Acelera() {
+	public void Acelera(int aceleracion) {
 		if(motor==true) {
-			System.out.println("Introduzca la velocidad por h que va a acelerar");
-			km=sc.nextInt();
-			if(km>this.velocidad) {
-				if(km<=VelocidadMax) {
-					this.velocidad=km;
-					distanciaTotal+=this.velocidad;
-					contadorParcial+=this.velocidad;
+			
+			
+			if(aceleracion>this.velocidad) {
+				if(aceleracion<=VelocidadMax) {
+					velocidad=aceleracion;
+					distanciaTotal+=velocidad;
+					contadorParcial+=velocidad;
 				
 				}else {
 						infoError("Ha superado la velocidad máxima permitida por el vehículo,no se puede hacer la aceleración");
@@ -122,14 +124,14 @@ public class Coche {
 	
 	//Método que fija la velocidad por h que establece el usuario cuando frena
 	
-	public void Frenar() {
+	public void Frenar(int freno) {
 		if(motor==true) {
-			System.out.println("Introduzca la velocidad por h que va a frenar");
-			km=sc.nextInt();
-			if(km<this.velocidad) {
-				this.velocidad=km;
-				distanciaTotal-=this.velocidad;
-				contadorParcial-=this.velocidad;
+			
+			
+			if(freno<this.velocidad) {
+				velocidad=freno;
+				distanciaTotal-=velocidad;
+				contadorParcial-=velocidad;
 				
 			}else {
 				infoError("Para poder frenar la velocidad debe ser inferior a la que está usando");
@@ -156,6 +158,20 @@ public class Coche {
 	  private void infoError( String mensaje){
 		   System.err.println(mensaje);
 	  }
+	  public int getDistanciaTotal() {
+		 return distanciaTotal;
+	  }
+	  public static boolean alcanzarMeta(Coche[] coches, int meta) {
+			boolean fin = false;
+			for (int t = 0; t < coches.length; t++) {
+			     if ( coches[t].getDistanciaTotal() >= meta ){
+			    	 fin = true; 
+			    	 break;
+			     }
+			}
+			return fin;
+		}
+		
 	
 	  //Ficha con toda la información del vehículo
 	  
@@ -170,55 +186,56 @@ public class Coche {
 
 	public static void main(String[] args) {
 		
-		//Creación de objeto deportivo
+		System.out.println("BIENVENIDO A LA FORMULA1 ");
+		
+		System.out.println("Introduzca la velocidad por h que va a acelerar");
+		int aceleracion=sc.nextInt();
+		System.out.println("Introduzca la velocidad por h que va a frenar");
+		int freno=sc.nextInt();
+		
+		//Parrilla de salida de 5 coches
+		
+		Coche[]coches=new Coche[5];
+		
+		//Creación de coches que van a correr
+		
 		int opcion=0;
 		int contador=0;
-		Coche Formula1=new Coche();
-		
-		//Menú de acción 
-		
-		System.out.println("BIENVENIDO A LA FORMULA1 ");
-		System.out.println("Elija lo que quiere hacer con su coche");
-		System.out.println("1. Arrancar");
-		System.out.println("2. Apagar motor");
-		System.out.println("3. Acelerar");
-		System.out.println("4. Frenar");
-		System.out.println("5. Recorrer kms");
-		System.out.println("6. Mostrar información");
-		while(opcion!=6) {
-		opcion=sc.nextInt();
 		
 		
-			switch(opcion) {
-			case 1:
-				Formula1.Arrancar();
-				
-				break;
-			case 2:
-				Formula1.Parar();
-				
-				break;
-			case 3:
-				Formula1.Acelera();
-				
-				break;
-			case 4:
-				Formula1.Frenar();
-				
-				break;
-			case 5:
-				Formula1.kmsRecorridos();
-				
-				break;
-			case 6:
-				Formula1.info();
-
-				break;
-			default:
-				System.err.println("Opción no válida");
-				
+		coches[0]=new Coche("Renault",370);
+		coches[1]=new Coche("Ferrari",300);
+		coches[2]=new Coche("Mercedes",250);
+		coches[3]=new Coche("Toyota",250);
+		coches[4]=new Coche("Ford",310);
+		
+		//Arrancan los coches
+		System.out.println("¡Arrancan los motores!");
+		for(int i=0;i<coches.length;i++) {
+			coches[i].Arrancar();
+		}
+		
+		//Comienza la carrera
+		System.out.println("¡Comienza la carrera!");
+		do {
+			
+			for(int i=0;i<coches.length;i++) {
+				coches[i].Acelera(aceleracion);
+				coches[i].kmsRecorridos();
+				coches[i].Frenar(freno);
+				coches[i].kmsRecorridos();
+				coches[i].info();
 			}
+			System.out.println("------------------FINAL DE LA CARRERA----------------------");
+		}while(!alcanzarMeta(coches,meta));
+		
+		for(int i=0; i< coches.length; i++){
+			System.out.println((i+1)+"º Clasificado :");
+			coches[i].info();
 		}
 	}
 
 }
+
+		
+	
