@@ -1,0 +1,112 @@
+
+
+//EJERCICIO EXAMEN ORDINARIA 2021
+
+/*(1.5 Puntos)
+C) Realizar una función que devuelva un string donde se cambie las letras vocales por el carácter que se indique como parámetro. Para simplificar el ejercicio podéis suponer que solo existen vocales en minúsculas y sin acentos.
+static public String cambiarVocales( String cadena, char nuevaletra) {
+..
+}
+Ejemplo:
+cambiarVocales ("Hola Pepe",’*’)  -> "H*l* P*p*"
+cambiarVocales ("Hola Pepe",’-’)  -> "H-l- P-p-"
+PEGAR LA SOLUCIÓN
+
+
+(1.5 Puntos)
+D) Realizar una función que devuelva un string donde se hayan suprimido los caracteres que hay entre paréntesis en la cadena pasada como parámetro. Se supone que, o no hay paréntesis, o hay solo un paréntesis de abrir y otro de cerrar.
+static public String quitarParentesis( String cadena) {
+..
+}
+Ejemplo:
+quitarParentesis ("Hola Pepe (jose) ¿como estás?")  -> "Hola Pepe ¿como estás?"
+quitarParentesis ("Hola Pepe")  → "Hola Pepe"
+quitarParentesis ("Vaya ejercicio(es un rollo) que interesante")  → "Vaya ejercicio que interesante"
+
+PEGAR LA SOLUCIÓN
+
+
+
+(3 Puntos)
+3. Para elaborar un programa para una tienda de ciclismo tenemos que crear dos clases: Bicicleta y BicicletaElectrica que hereda de la clase anterior, ademas está clase implementa el interfaz Motor.
+La clase Bicicleta tiene los siguientes atributos y métodos
+Atributos:
+•	  int codigo_bici;
+•	  float precio;
+•	  String modelo;
+•	  int velocidad; Inicialmente la velocidad será 0 kilometros.
+Métodos:
+•	 Constructor  recibe como parámetros el codigo_bici, precio y modelo
+•	 pedalear que recibe como parámetro la velocidad de pedaleo, este valor cambiará el valor de atributo velocidad.
+•	toString  genera un String con la información de la bicicleta.
+PEGAR LA SOLUCIÓN DE LA CLASE Bicicleta
+
+
+El interfaz Motor tiene la siguiente definición
+public interface Motor {
+  void encender();
+  void apagar();
+}
+
+La clase BicicletaElectrica hereda de la clase anterior, implementa el interface Motor y tiene dos nuevos atributos, modificando el método constructor y pedalea
+Nuevos Atributos:
+•	 boolean estadoMotor (True- encendido / False – apagado)
+•	int autonomia (kilometros que puede recorrer usando la batería)
+Métodos que modifica de la clase Bicicleta
+•	Constructor – fija además el estado de motor a apagado y un valor determinado de autonomía
+•	Pedalear(velocidad de pedaleo) – fija  la velocidad de la bicicleta: el doble de la velocidad de pedaleo si el motor esta encendido, sino toma el valor que se le indique.
+ */
+
+package examen2021;
+
+public abstract class BiclicletaElectrica extends Bicicleta implements Motor{
+	static protected int codigo_bici;
+	static protected float precio;
+	static protected String modelo;
+	protected int velocidad=0;
+	protected static boolean estadoMotor;
+	public int autonomia;
+	public BiclicletaElectrica(int codigo_bici,float precio,String modelo) {
+		super(codigo_bici,precio,modelo);
+		//Estado de motor apagado fijado por el constructor
+		this.estadoMotor=false;
+		this.autonomia=72;
+	}
+	
+	 
+	public static void main(String[] args) {
+		int contadorBici = 0;
+		Bicicleta biciElectrica=new Bicicleta(7000,200,"Bicicleta de ciudad");
+		
+		System.out.println(biciElectrica.toString(codigo_bici,precio,modelo));
+		
+		System.out.println("BIENVENIDO AL MENÚ DE TU BICI ELÉCTRICA:");
+		System.out.println("Pulsa 1 para encender motor");
+		System.out.println("Pulsa 2 para pedalear");
+		System.out.println("Pulsa 3 para apagar motor y salir del programa");
+		int opcion = 0;
+		
+		while(contadorBici!=4) {
+			System.out.println("Elije una opción:");
+			opcion=sc.nextInt();
+			switch(opcion) {
+			case 1:
+				Motor.encender(estadoMotor);
+				contadorBici++;
+				break;
+			case 2:
+				biciElectrica.pedalear(velocidadPedaleo);
+				contadorBici++;
+				break;
+			case 3:
+				Motor.apagar(estadoMotor);
+				contadorBici++;
+				break;
+			default:
+				System.out.println("Ha introducido una opción incorrecta");
+				contadorBici++;
+			}
+		}
+
+	}
+}
