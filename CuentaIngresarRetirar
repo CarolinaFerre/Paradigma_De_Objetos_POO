@@ -1,0 +1,124 @@
+
+
+
+/* 1) Crea una clase llamada Cuenta que tendrá los siguientes atributos: 
+ * titular y cantidad (puede tener decimales).
+
+El titular será obligatorio y la cantidad es opcional. 
+Crea dos constructores que cumpla lo anterior.
+
+Crea sus métodos get, set y toString.
+
+Tendrá dos métodos especiales:
+
+ingresar(double cantidad): se ingresa una cantidad a la cuenta, 
+si la cantidad introducida es negativa, no se hará nada.
+retirar(double cantidad): se retira una cantidad a la cuenta, 
+si restando la cantidad actual a la que nos pasan es negativa, 
+la cantidad de la cuenta pasa a ser 0.*/
+
+package ficheros_;
+
+import java.util.Scanner;
+
+public class Cuenta {
+	static Scanner sc=new Scanner (System.in);
+	private String titular;
+	private static double cantidad;
+	static int contador;
+	
+	//Constructor con dos parámetros titular y cantidad
+	public Cuenta(String titular,double cantidad) {
+		this.titular=titular;
+		this.cantidad=cantidad;
+	}
+	
+	//Métodos getter y setter de titular y cantidad
+	public String getTitular() {
+		return titular;
+	}
+
+	public double getCantidad() {
+		return cantidad;
+	}
+
+	public void setTitular(String titular) {
+		this.titular = titular;
+	}
+
+	public void setCantidad(float cantidad) {
+		this.cantidad = cantidad;
+	}
+	
+	//Método toString para mostrar información de la cuenta
+	@Override
+	public String toString() {
+		return "Cuenta [titular=" + titular + ", cantidad=" + cantidad + "]";
+	}
+	
+	//Método para ingresar dinero en la cuenta
+	public void ingresarDinero(double cantidad) {
+		System.out.println("Introduzca una cantidad a ingresar");
+		int cantidadIngreso=sc.nextInt();
+		if (cantidadIngreso<=0) {
+			cantidadIngreso=0;
+			System.err.println("No puede ingresar saldo negativo o nulo");
+		}else {
+			this.cantidad+=cantidadIngreso;
+			System.out.println("Usted ha hecho un ingreso de "+this.cantidad+"€");
+		}
+	}
+	
+	//Método para retirar dinero en la cuenta
+	public void retirarDinero(double cantidad) {
+		System.out.println("Introduza cantidad a retirar");
+		int cantidadRetirar=sc.nextInt();
+		if(cantidadRetirar>=this.cantidad) {
+			this.cantidad=0;
+			System.err.println("Su saldo es negativo");
+		}else {
+			this.cantidad-=cantidadRetirar;
+			System.out.println("Usted ha hecho una retirada de saldo de "+this.cantidad+"€");
+		}
+	}
+	public static void main(String[] args) {
+		
+		//Objeto cuenta 
+		Cuenta cuenta=new Cuenta("PAULA GALLEGO",1200);
+		
+		//Menú de opciones de banco JAVA
+		System.out.println("Bienvenido al banco JAVA");
+		System.out.println("Elija entre las siguientes opciones:");
+		System.out.println("Pulse 1 para ingresar dinero en su cuenta");
+		System.out.println("Pulse 2 para retirar dinero de su cuenta");
+		System.out.println("Pulse 3 para ver información de su cuenta");
+		System.out.println("Pulse 4 para salir del sistema");
+		
+		while(contador!=5) {
+			//Opción de usuario
+			int opcion=sc.nextInt();
+			switch(opcion) {
+			case 1:
+				cuenta.ingresarDinero(cantidad);
+				contador++;
+				break;
+			case 2:
+				cuenta.retirarDinero(cantidad);
+				contador++;
+				break;
+			case 3:
+				System.out.println(cuenta.toString());
+				contador++;
+				break;
+			case 4:
+				System.out.println("Gracias por visitarnos");
+				System.exit(0);
+				break;
+			default:
+				System.out.println("No podemos procesar su solicitud");
+				contador++;
+			}
+		}
+
+	}
+}
