@@ -1,0 +1,54 @@
+
+
+//SUBCLASE LAVADORA
+
+
+public class lavadora extends electrodomestico{
+	protected int carga;
+	protected static final int cargaDef=5;
+	
+	//Constructor con la carga por parámetro y el resto de atributos heredados
+	public lavadora(int carga,String color,char consumoElectrico,double precio, int peso) {
+		super(color,consumoElectrico,precio,peso);
+		this.carga=carga;
+		
+		
+	}
+	//Constructor con el precio y peso por parámetro y el resto de atributos por defecto
+	public lavadora(double precio,int peso) {
+		
+		this.precio=precio;
+		this.peso=peso;
+		this.carga=cargaDef;
+		this.color=colorDef;
+		this.consumoElectrico=consumoDef;
+	}
+	//Constructor por defecto
+	public lavadora() {
+		
+		this.carga=cargaDef;
+		this.color=colorDef;
+		this.consumoElectrico=consumoDef;
+		this.precio=precioDef;
+		this.peso=pesoDef;
+		
+	}
+	
+	//Método get de carga
+	public int getCarga() {
+		return this.carga;
+	}
+	//Método de preco final, en función de la carga varía el precio
+	public double precioFinal() {
+		double precioFinal=super.PrecioFinal();
+		if(this.carga>30) {
+			System.out.println("La carga es mayor a 30 con lo cual se aumenta el precio 50 €");
+			precioFinal=precioFinal+50;
+		}else {
+			System.err.println("No se efectúan cambios en el precio ya que la carga es menor que 30");
+		}
+		return precioFinal;
+	}
+	
+
+}
