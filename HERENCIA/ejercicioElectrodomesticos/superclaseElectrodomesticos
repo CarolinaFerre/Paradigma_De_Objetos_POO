@@ -1,115 +1,197 @@
 
-//SUPERCLASE ELECTRODOMESTICOS
-
-public class electrodomestico {
-	
-	
-
-
-	//Atributos de superclase que se pueden heredar en las subclases
-	protected static String color;
-	protected static double precio;
-	protected static int peso;
-	protected static char consumoElectrico;
-	//Valores por defecto
-	protected static final String colorDef="BLANCO";
-	protected static final char consumoDef='F';
-	protected static final int pesoDef=5;
-	protected static final double precioDef=100;
-	
-	//Constructor con valores por defecto en el constructor
-	public electrodomestico() {
-		this.color=colorDef;
-		this.consumoElectrico=consumoDef;
-		this.precio=precioDef;
-		this.peso=pesoDef;
-	}
-	//Constructor con precio y peso por parámetro y el resto por defecto
-	public electrodomestico(double precio,int peso) {
-		this.color=colorDef;
-		this.consumoElectrico=consumoDef;
-		
-	}
-	public electrodomestico(String color,char consumoElectrico, double precio,int peso) {
-	
-		this.precio=precio;
-		this.peso=peso;
-		comprobarConsumoEnergetico(consumoElectrico);
-		comprobarColor(color);
-	}
-	//Métodos getter de todos los atributos
-	
-	protected String getColor() {
-		return color;
-	}
-	protected double getPrecio() {
-		return precio;
-	}
-	protected int getPeso() {
-		return peso;
-	}
-	protected char getConsumoElectrico() {
-		return consumoElectrico;
-	}
-
-	public void comprobarConsumoEnergetico(char consumoElectrico){
-		//Método que comprueba si la letra del consumo energético es correcto
-		if((consumoElectrico=='A')||(consumoElectrico=='a')||(consumoElectrico=='B')||(consumoElectrico=='b')||(consumoElectrico=='C')||(consumoElectrico=='c')||(consumoElectrico=='d')||(consumoElectrico=='D')||(consumoElectrico=='E')||(consumoElectrico=='e')||(consumoElectrico=='f')||(consumoElectrico=='F')){
-			System.out.println("El código es correcto");
-		}else {
-			System.err.println("El código no es correcto");
-		}
-	}
-	
-	public void comprobarColor(String color) {
-		//Método que comprueba si el color es el correcto
-		if((color.equals("blanco"))||(color.equals("BLANCO"))||(color.equals("negro"))||(color.equals("NEGRO"))||(color.equals("rojo"))||(color.equals("ROJO"))||(color.equals("AZUL"))||(color.equals("azul"))||(color.equals("GRIS"))||(color.equals("gris"))) {
-			System.out.println("El color es correcto, y está dentro de nuestro catálogo");
-			
-		}else {
-			System.err.println("El color es erróneo, no está dentro de nuestra bbdd");
-		}
-	}
-	
-	public double PrecioFinal() {
-		//Método que aumenta el precio según el consumo energético
-		if((consumoElectrico=='A')||(consumoElectrico=='a')) {
-			this.precio=this.precio+100;
-			System.out.println("El precio final es "+precio);
-		}else if ((consumoElectrico=='B')||(consumoElectrico=='b')) {
-			this.precio=this.precio+80;
-			System.out.println("El precio final es "+precio);
-		}else if ((consumoElectrico=='C')||(consumoElectrico=='c')) {
-			this.precio=this.precio+60;
-			System.out.println("El precio final es "+precio);
-		}else if ((consumoElectrico=='D')||(consumoElectrico=='d')) {
-			this.precio=this.precio+50;
-			System.out.println("El precio final es "+precio);
-		}else if ((consumoElectrico=='E')||(consumoElectrico=='e')) {
-			this.precio=this.precio+30;
-			System.out.println("El precio final es "+precio);
-		}else if ((consumoElectrico=='F')||(consumoElectrico=='f')) {
-			this.precio=this.precio+10;
-			System.out.println("El precio final es "+precio);
-			
-		}else {
-			this.precio=precioDef;
-			System.err.println("El precio asignado es el de defecto "+this.precio);
-		}
-		
-		   if(this.peso>=0 && this.peso<19){
-	            this.precio+=10;
-	        }else if(this.peso>=20 && this.peso<49){
-	            this.precio+=50;
-	        }else if(this.peso>=50 && this.peso<=79){
-	            this.precio+=80;
-	        }else if(this.peso>=80){
-	            this.precio+=100;
-	        }
-	   
-			return this.precio;
-		
-	}
-	
-
+/**
+ * Clase Electrodomestico
+ *
+ * Contiene informacion de los electrodomesticos
+ * @author Fernando
+ * @version 1.0
+ */
+public class Electrodomestico {
+   
+    //Constantes
+   
+    /**
+     * Color por defecto
+     */
+    protected final static String COLOR_DEF="blanco";
+   
+    /**
+     * Consumo energetico por defecto
+     */
+    protected final static char CONSUMO_ENERGETICO_DEF='F';
+   
+    /**
+     * Precio base por defecto
+     */
+    protected final static double PRECIO_BASE_DEF=100;
+   
+    /**
+     * Peso por defecto
+     */
+    protected final static double PESO_DEF=5;
+   
+    //Atributos
+   
+    /**
+     * El precio base del electrodomestico
+     */
+    protected double precioBase;
+   
+    /**
+     * Color del electrodomestico
+     */
+    protected String color;
+   
+    /**
+     * Indica el consumo energetico del electrodomestico
+     */
+    protected char consumoEnergetico;
+   
+    /**
+     * Peso del electrodomestico
+     */
+    protected double peso;
+   
+    //Métodos privados
+   
+    private void comprobarColor(String color){
+   
+        //Colores disponibles
+        String colores[]={"blanco", "negro", "rojo", "azul", "gris"};
+        boolean encontrado=false;
+  
+        for(int i=0;i<colores.length && !encontrado;i++){
+              
+            if(colores[i].equals(color)){
+                encontrado=true;
+            }
+              
+        }
+          
+        if(encontrado){
+            this.color=color;
+        }else{
+            this.color=COLOR_DEF;
+        }
+          
+          
+    }
+      
+    /**
+     * Comprueba el consumo energetico
+     * Solo mayusculas, si es una 'a' no lo detecta como una 'A'
+     * @param consumoEnergetico
+     */
+    public void comprobarConsumoEnergetico(char consumoEnergetico){
+          
+        if(consumoEnergetico>=65 && consumoEnergetico<=70){
+            this.consumoEnergetico=consumoEnergetico;
+        }else{
+            this.consumoEnergetico=CONSUMO_ENERGETICO_DEF;
+        }
+          
+    }
+   
+    //Métodos publicos
+    /**
+     * Devuelve el precio base del electrodomestico
+     * @return precio base del electrodomestico
+     */
+    public double getPrecioBase() {
+        return precioBase;
+    }
+    /**
+     * Devuelve el color del electrodomestico
+     * @return color del elesctrodomestico
+     */
+    public String getColor() {
+        return color;
+    }
+   
+     /**
+     * Devuelve el consumo energetico del electrodomestico
+     * @return consumo energetico del electrodomestico
+     */
+    public char getConsumoEnergetico() {
+        return consumoEnergetico;
+    }
+    /**
+     * Devuelve el peso del electrodomestico
+     * @return peso del electrodomestico
+     */
+    public double getPeso() {
+        return peso;
+    }
+    /**
+     * Precio final del electrodomestico
+     * @return precio final del electrodomestico
+     */
+    public double precioFinal(){
+        double plus=0;
+        switch(consumoEnergetico){
+            case 'A':
+                plus+=100;
+                break;
+            case 'B':
+                plus+=80;
+                break;
+            case 'C':
+                plus+=60;
+                break;
+            case 'D':
+                plus+=50;
+                break;
+            case 'E':
+                plus+=30;
+                break;
+            case 'F':
+                plus+=10;
+                break;
+        }
+   
+        if(peso>=0 && peso<19){
+            plus+=10;
+        }else if(peso>=20 && peso<49){
+            plus+=50;
+        }else if(peso>=50 && peso<=79){
+            plus+=80;
+        }else if(peso>=80){
+            plus+=100;
+        }
+   
+        return precioBase+plus;
+    }
+   
+    //Constructores
+   
+    /**
+     * Contructor por defecto
+     */
+    public Electrodomestico(){
+        this(PRECIO_BASE_DEF, PESO_DEF, CONSUMO_ENERGETICO_DEF, COLOR_DEF);
+    }
+   
+    /**
+     * Contructor con 2 parametros
+     * @param precioBase del electrodomestico
+     * @param peso del electrodomestico
+     */
+    public Electrodomestico(double precioBase, double peso){
+        this(precioBase, peso, CONSUMO_ENERGETICO_DEF, COLOR_DEF);
+    }
+   
+    /**
+     * Constructor con 4 parametros
+     * @param precioBase
+     * @param peso
+     * @param consumoEnergetico
+     * @param color
+     */
+    public Electrodomestico(double precioBase, double peso, char consumoEnergetico, String color){
+        this.precioBase=precioBase;
+        this.peso=peso;
+        comprobarConsumoEnergetico(consumoEnergetico);
+        comprobarColor(color);
+    }
+   
 }
