@@ -1,0 +1,111 @@
+
+//SUBCLASE TELEVISION
+
+public class television extends electrodomestico {
+	
+	protected static int resolucion;
+	protected static boolean sintonizador;
+	protected final int resoDef=20;
+	
+
+	
+	//Constructor por defecto
+	public television() {
+		
+		this.resolucion=resoDef;
+		this.sintonizador=false;
+		this.color=colorDef;
+		this.consumoElectrico=consumoDef;
+		this.precio=precioDef;
+		this.peso=pesoDef;
+	}
+	//Constructor con precio y peso por parámetro y el resto por defecto
+	public television(double precio,int peso) {
+		
+		this.resolucion=resoDef;
+		this.sintonizador=false;
+		this.precio=precio;
+		this.peso=peso;
+		this.color=colorDef;
+		this.consumoElectrico=consumoDef;
+		
+	}
+	//Constructor con resolución y sintonizador por parámetro y el resto heredado
+	public television(int resolucion,boolean sintonizador,String color,char consumoElectrico,double precio, int peso) {
+		super(color,consumoElectrico,precio,peso);
+		this.resolucion=resolucion;
+		this.sintonizador=sintonizador;
+		
+		
+	}
+	
+	//Métodos get de resolución y sintonizador
+	
+	public int getResolucion() {
+		return this.resolucion;
+	}
+	
+	public boolean getSintonizador() {
+		return this.sintonizador;
+	}
+	
+	//Método precioFinal, modifica el precio en función de la resolución
+	
+	public double precioFinal() {
+		double precioFinal_=super.PrecioFinal();
+		if(this.resolucion>40){
+			System.out.println("La resolución es mayor a 40 y se incrementa el precio un 30%");
+			precioFinal_+=this.precio*0.30;
+			
+		}else if(this.sintonizador==true) {
+			System.out.println("Incorpora sintonizador TDT con lo cual se aumenta el precio a 50 € más");
+			precioFinal_+=50;
+		}else {
+			System.err.println("No se efectúan cambios en el precio");
+			
+		}
+		return precioFinal_;
+	}
+	//Clase test
+	public static void main(String[] args) {
+		double sumaElectrodomesticos = 0;
+		double sumaTelevisiones=0;
+        double sumaLavadoras=0;
+		
+		//Array de electrodomésticos de 10 posiciones
+		electrodomestico[] electrodomesticos_=new electrodomestico[10];
+		electrodomesticos_[0]=new lavadora();
+		electrodomesticos_[1]=new lavadora(300,100);
+		electrodomesticos_[2]=new lavadora(10,"ROJO",'A',1000,100);
+		electrodomesticos_[4]=new lavadora(20,"R ojo",'b',2000,200);
+		electrodomesticos_[5]=new lavadora();
+		electrodomesticos_[6]=new television();
+		electrodomesticos_[7]=new television();
+		electrodomesticos_[8]=new television();
+		electrodomesticos_[9]=new television(534,30);
+		
+	
+		//Recorremos el array y aplicamos el método precioFinal para mostrar el precio de cada objeto
+		for(int i=0;i<electrodomesticos_.length;i++){
+		
+		if(electrodomesticos_[i] instanceof electrodomestico) {
+			System.out.println("Electrodoméstico");
+			sumaElectrodomesticos+=electrodomesticos_[i].PrecioFinal();
+		}
+		if(electrodomesticos_[i] instanceof television) {
+			System.out.print("Televisor");
+			sumaTelevisiones+=electrodomesticos_[i].PrecioFinal();
+			
+		}else if(electrodomesticos_[i] instanceof lavadora) {
+			System.out.print("Lavadora");
+			sumaLavadoras+=electrodomesticos_[i].PrecioFinal();
+			
+			
+			}
+		}
+		 //Mostramos los resultados
+        System.out.println("La suma del precio de los electrodomesticos es de "+sumaElectrodomesticos);
+        System.out.println("La suma del precio de las lavadoras es de "+sumaLavadoras);
+        System.out.println("La suma del precio de las televisiones es de "+sumaTelevisiones);
+	}
+}
