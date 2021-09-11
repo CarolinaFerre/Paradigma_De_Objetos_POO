@@ -1,69 +1,84 @@
 
-//SUBCLASE TELEVISION
-
-public class television extends electrodomestico {
-	
-	protected static int resolucion;
-	protected static boolean sintonizador;
-	protected final int resoDef=20;
-	
-
-	
-	//Constructor por defecto
-	public television() {
-		
-		this.resolucion=resoDef;
-		this.sintonizador=false;
-		this.color=colorDef;
-		this.consumoElectrico=consumoDef;
-		this.precio=precioDef;
-		this.peso=pesoDef;
-	}
-	//Constructor con precio y peso por parámetro y el resto por defecto
-	public television(double precio,int peso) {
-		
-		this.resolucion=resoDef;
-		this.sintonizador=false;
-		this.precio=precio;
-		this.peso=peso;
-		this.color=colorDef;
-		this.consumoElectrico=consumoDef;
-		
-	}
-	//Constructor con resolución y sintonizador por parámetro y el resto heredado
-	public television(int resolucion,boolean sintonizador,String color,char consumoElectrico,double precio, int peso) {
-		super(color,consumoElectrico,precio,peso);
-		this.resolucion=resolucion;
-		this.sintonizador=sintonizador;
-		
-		
-	}
-	
-	//Métodos get de resolución y sintonizador
-	
-	public int getResolucion() {
-		return this.resolucion;
-	}
-	
-	public boolean getSintonizador() {
-		return this.sintonizador;
-	}
-	
-	//Método precioFinal, modifica el precio en función de la resolución
-	
-	public double precioFinal() {
-		double precioFinal_=super.PrecioFinal();
-		if(this.resolucion>40){
-			System.out.println("La resolución es mayor a 40 y se incrementa el precio un 30%");
-			precioFinal_+=this.precio*0.30;
-			
-		}else if(this.sintonizador==true) {
-			System.out.println("Incorpora sintonizador TDT con lo cual se aumenta el precio a 50 € más");
-			precioFinal_+=50;
-		}else {
-			System.err.println("No se efectúan cambios en el precio");
-			
-		}
-		return precioFinal_;
-	}
-	
+/**
+ * Clase Television
+ *
+ * Contiene informacion de una television
+ *
+ * @author Fernando
+ * @version 1.0
+ */
+public class Television extends Electrodomestico{
+  
+    //Constantes
+  
+    /**
+     * Resolucion por defecto
+     */
+    private final static int RESOLUCION_DEF=20;
+  
+    //Atributos
+  
+    /**
+     * Resolucion del televisor
+     */
+    private int resolucion;
+  
+    /**
+     * Indica si tiene o no sintonizadorTDT
+     */
+    private boolean sintonizadorTDT;
+  
+    //Métodos publicos
+  
+    /**
+     * Precio final de la television
+     * @return precio final de la television
+     */
+    public double precioFinal(){
+        //Invocamos el método precioFinal del método padre
+        double plus=super.precioFinal();
+  
+        //Añadimos el codigo necesario
+        if (resolucion>40){
+            plus+=precioBase*0.3;
+        }
+        if (sintonizadorTDT){
+            plus+=50;
+        }
+  
+        return plus;
+    }
+  
+    //Constructor
+  
+    /**
+     * Constructor por defecto
+     */
+    public Television(){
+        this(PRECIO_BASE_DEF, PESO_DEF, CONSUMO_ENERGETICO_DEF, COLOR_DEF, RESOLUCION_DEF, false);
+    }
+  
+    /**
+     * Constructor con 2 parametros
+     * @param precioBase
+     * @param peso
+     */
+    public Television(double precioBase, double peso){
+        this(precioBase, peso, CONSUMO_ENERGETICO_DEF, COLOR_DEF, RESOLUCION_DEF, false);
+    }
+  
+    /**
+     * Contructor con 6 parametros
+     * @param precioBase
+     * @param peso
+     * @param consumoEnergetico
+     * @param color
+     * @param resolucion
+     * @param sintonizadorTDT
+     */
+    public Television(double precioBase, double peso, char consumoEnergetico, String color, int resolucion, boolean sintonizadorTDT){
+        super(precioBase, peso, consumoEnergetico, color);
+        this.resolucion=resolucion;
+        this.sintonizadorTDT=sintonizadorTDT;
+    }
+}
