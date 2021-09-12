@@ -1,0 +1,92 @@
+
+
+package tiposAnimales;
+
+import java.util.ArrayList;
+
+public class testAnimales extends Animal{
+	//Variables estáticas
+	static int contadorAnimalesSalvajes;
+	static int contadorAves;
+	static int contadorMamiferos;
+	
+	public static void main(String[] args) {
+		//Creamos ArrayList de objetos para guardar todos los objetos
+		ArrayList <Object> lista=new ArrayList<Object>();
+		
+		//****Objetos de la clase Animal*****
+		
+		//Objeto que llama a constructor por defecto
+		Animal tigre=new Animal();
+		lista.add(tigre);
+		//Objeto que llama a constructor con 4 parámetros y el resto defecto
+		Animal leopardo=new Animal("leopardo","grrr","carnívoro","Sabana");
+		lista.add(leopardo);
+		//Objeto que llama a constructor todo por parámetro
+		Animal rana=new Animal("rana","gruap","insectos","lagunas",4,0);
+		lista.add(rana);
+		
+		//****Objetos de la clase ave****
+		ave canario=new ave ("canario","piopio","alpiste","ciudad",0,2,true,false);
+		lista.add(canario);
+		ave pinguino=new ave("pinguino","noot noot","peces","Antártida",2,6,false,true);
+		lista.add(pinguino);
+		ave pato=new ave("pato","cuak cuak","hierba","ríos",2,7,true,true);
+		lista.add(pato);
+		
+		//****Objetos de la clase manífero****
+		mamifero leon=new mamifero("leon",true,false,false,true,false);
+		lista.add(leon);
+		mamifero murcielago=new mamifero("murciélago","No produce sonido","la noche","plantas",1,4,false,false,true,false,false);
+		lista.add(murcielago);
+		
+		
+		System.out.println("******FICHA DE ANIMALES SALVAJES******");
+		System.out.println();
+		System.out.println(tigre.toString());
+		tigre.edad_();
+		System.out.println("******************************");
+		System.out.println(leopardo.toString());
+		leopardo.edad_();
+		System.out.println("******************************");
+		System.out.println(rana.toString());
+		rana.edad_();
+		System.out.println("******************************");
+		System.out.println();
+		System.out.println("******FICHA DE AVES******");
+		System.out.println(canario.toString());
+		canario.edad_();
+		System.out.println("******************************");
+		System.out.println(pinguino.toString());
+		pinguino.edad_();
+		System.out.println("******************************");
+		System.out.println(pato.toString());
+		pato.edad_();
+		System.out.println("******************************");
+		System.out.println();
+		System.out.println("******FICHA DE MAMÍFEROS******");
+		System.out.println();
+		System.out.println(leon.toString());
+		leon.edad_();
+		System.out.println("******************************");
+		System.out.println(murcielago.toString());
+		murcielago.edad_();
+		System.out.println("******************************");
+		System.out.println();
+		System.out.println("****RECUENTO DE ANIMALES SEGÚN A LO QUE PERTENECEN*****");
+		for(Object i:lista) {
+			if(i instanceof mamifero) {
+				contadorMamiferos++;
+			}else if(i instanceof ave) {
+				contadorAves++;
+			}else if(i instanceof Animal) {
+				contadorAnimalesSalvajes++;
+			}
+		}
+		
+		System.out.println("El total de animales salvajes es= "+contadorAnimalesSalvajes);
+		System.out.println("El total de aves es= "+contadorAves);
+		System.out.println("El total de mamíferos es= "+contadorMamiferos);
+	}
+
+}
