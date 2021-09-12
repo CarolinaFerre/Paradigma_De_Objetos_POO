@@ -1,0 +1,73 @@
+
+
+package menuVehiculos;
+
+import java.util.Scanner;
+
+public class testVehiculos extends vehiculo{
+	
+	public testVehiculos() {
+		
+	}
+
+	public static void main(String[] args) {
+		
+		int opcion;
+		int contador=0;
+		
+		coche golf=new coche ();
+		bicicleta decathlon=new bicicleta(true);
+		
+		System.out.println("VEHÍCULOS:");
+		System.out.println();
+		System.out.println("1.Anda con la bicicleta");
+		System.out.println("2.Haz el caballito con la bicicleta");
+		System.out.println("3.Anda con el coche");
+		System.out.println("4.Ver kilometraje de la bicicleta");
+		System.out.println("5.Ver kilometraje del coche");
+		System.out.println("6.Ver kilometraje total");
+		System.out.println("7.Salir");
+		System.out.println("Elige una de estas opciones:");
+		
+		while(contador!=4) {
+			opcion=sc.nextInt();
+			switch(opcion) {
+		
+			case 1:
+				decathlon.iniciarMarchaBici();
+				contador++;
+				break;
+			case 2:
+				decathlon.caballitoBici();
+				contador++;
+				break;
+			case 3:
+				golf.iniciarMarchaCoche();
+				contador++;
+				break;
+			case 4:
+				System.out.println(decathlon.getKmRecorridos());
+				contador++;
+				break;
+			case 5:
+				System.out.println(golf.getKmRecorridos());
+				contador++;
+				break;
+			case 6:
+				int suma;
+				suma=decathlon.kmRecorridos+golf.kmRecorridos;
+				System.out.println("El total de km recorridos es "+suma);
+				contador++;
+				break;
+			case 7:
+				System.out.println("Se ha salido del sistema");
+				System.exit(0);
+				break;
+			default:
+				System.out.println("No podemos procesar su solicitud");
+				contador++;
+			}
+		}
+	}
+
+}
