@@ -1,0 +1,87 @@
+
+
+public class Animal {
+
+	
+	
+	static Scanner sc=new Scanner(System.in);
+	protected  String tipo;
+	protected  String sonido;
+	protected  String alimentacion;
+	protected  int peso;
+	protected  String habitat;
+	protected  int edad;
+	
+	//Atributos constantes de tigre
+	protected final String tipoDef="Tigre";
+	protected final String sonidoDef="grrr";
+	protected final String alimentacionDef="carnívoro";
+	protected final int pesoDef=310;
+	protected final String habitatDef="Sabana";
+	protected final int edadDef=10;
+	
+	//Constructor con tipo, sonido, alimentación y habitat por parámetro; peso y edad por defecto
+	public Animal(String tipo,String sonido,String alimentacion,String habitat) {
+		this.peso=pesoDef;
+		this.edad=edadDef;
+		this.tipo=tipo;
+		this.sonido=sonido;
+		this.alimentacion=alimentacion;
+		this.habitat=habitat;
+	}
+	//Constructor con parámetros que se aligen al crear el objeto
+	public Animal(String tipo,String sonido,String alimentacion,String habitat,int peso, int edad) {
+		this.tipo=tipo;
+		this.sonido=sonido;
+		this.alimentacion=alimentacion;
+		this.habitat=habitat;
+		this.peso=peso;
+		this.edad=edad;
+	}
+	//Constructor con todo por defecto que es la información del tigre
+	public Animal() {
+		this.tipo=tipoDef;
+		this.sonido=sonidoDef;
+		this.alimentacion=alimentacionDef;
+		this.habitat=habitatDef;
+		this.peso=pesoDef;
+		this.edad=edadDef;
+	}
+	//Getter y Setter
+	private String getTipo() {
+		return this.tipo;
+	}
+	private String getSonido() {
+		return this.sonido;
+	}
+	private String getAlimentacion() {
+		return this.alimentacion;
+	}
+	private int getPeso() {
+		return this.peso;
+	}
+	private String getHabitat() {
+		return this.habitat;
+	}
+	private int getEdad() {
+		return this.edad;
+	}
+	
+	//Método toString
+	@Override
+	public String toString() {
+		return " tipo=" + this.tipo + ", sonido=" + this.sonido + ", alimentacion=" + this.alimentacion + ", peso=" + this.peso
+				+ ", habitat=" + this.habitat + ", edad=" + this.edad +  " ";
+	}
+	public void  edad_() {
+		if(edad>=10) 
+			System.out.println("El animal se acerca a la vejez");
+		else if((edad>=2)&(edad<10)) 
+			System.out.println("El animal está en su edad adulta");
+		else if((edad>=0)&(edad<2)) 
+			
+			System.out.println("El animal es un cachorro");
+			}
+		}
+		
+	
