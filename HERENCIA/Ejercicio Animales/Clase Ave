@@ -1,0 +1,34 @@
+
+package tiposAnimales;
+
+import java.util.Scanner;
+
+public class ave extends Animal{
+	
+
+	
+	static Scanner sc=new Scanner(System.in);
+	private boolean capacidadParaVolar;
+	private boolean capacidadParaNadar;
+	//Constructor con parámetros
+	public ave(String tipo,String sonido,String alimentacion,String habitat,int peso, int edad,boolean capacidadParaVolar,boolean capacidadParaNadar) {
+		super(tipo,sonido,alimentacion,habitat,peso,edad);
+		this.capacidadParaNadar=capacidadParaNadar;
+		this.capacidadParaVolar=capacidadParaVolar;
+		
+	}
+	//Método toString de atributos de la subclase
+	@Override
+	public String toString() {
+		
+		return "Capacidad para volar=" + this.capacidadParaVolar + ", Capacidad para nadar=" + this.capacidadParaNadar +","+ super.toString()+" ";
+	}
+	
+	//Método getter de atributos de la subclase
+	private boolean getCapacidadParaVolar() {
+		return capacidadParaVolar;
+	}
+	private boolean getCapacidadParaNadar() {
+		return capacidadParaNadar;
+	}
+}
