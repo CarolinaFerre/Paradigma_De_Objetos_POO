@@ -1,0 +1,32 @@
+
+
+package menuVehiculos;
+
+import java.util.Scanner;
+
+public class coche extends vehiculo{
+	
+	
+	
+	public coche() {
+		this.velocidad=velocidad;
+		this.kmRecorridos=kmRecorridos;
+		
+		
+	}
+	public void iniciarMarchaCoche() {
+		System.out.println("Indique la velocidad");
+		this.velocidad=sc.nextInt();
+		if(this.velocidad>120) {
+			System.err.println("Usted quiere quemar ruedas = "+velocidad+" ,supera los límites de velocidad");
+			System.out.println("Velocidad a "+velocidad);
+			kmRecorridos=velocidad;
+			
+			
+		}else {
+			System.out.println("Usted va dentro de los limites de velocidad = "+velocidad);
+			kmRecorridos+=velocidad;
+		}
+		
+	}
+}
