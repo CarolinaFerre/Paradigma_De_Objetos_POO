@@ -1,0 +1,86 @@
+
+package tiposAnimales;
+
+import java.util.Scanner;
+
+public class mamifero extends Animal {
+	
+	
+	static Scanner sc=new Scanner(System.in);
+	private boolean depredador;
+	private boolean domestico;
+	private boolean acuatico;
+	private boolean terrestre;
+	private boolean volador;
+	private String tipo_;
+	private String sonido_;
+	private String habitat_;
+	private String alimentacion_;
+	private int peso_;
+	private int edad_;
+	
+	
+	//Constructor leon con atributos de la subclase por parámetro y el resto por defecto
+	public mamifero(String tipo,boolean depredador, boolean domestico, boolean acuatico, boolean terrestre, boolean volador) {
+		this.depredador=depredador;
+		this.domestico=domestico;
+		this.acuatico=acuatico;
+		this.terrestre=terrestre;
+		this.volador=volador;
+		this.tipo_=tipo;
+		this.sonido_=sonidoDef;
+		this.habitat_=habitatDef;
+		this.alimentacion_=alimentacionDef;
+		this.peso_=pesoDef;
+		this.edad_=edadDef;
+		
+		
+	}
+	public mamifero(String tipo, String sonido, String habitat, String alimentacion, int peso, int edad, boolean depredador, boolean acuatico,boolean volador, boolean terrestre, boolean domestico) {
+		super(tipo,sonido,habitat,alimentacion,peso,edad);
+		this.depredador=depredador;
+		this.acuatico=acuatico;
+		this.volador=volador;
+		this.terrestre=terrestre;
+		this.domestico=domestico;
+	}
+	//Getter y Setter de los atributos de la subclase
+	protected boolean getDepredador() {
+		return depredador;
+	}
+	protected boolean isDomestico() {
+		return domestico;
+	}
+	protected boolean getAcuatico() {
+		return acuatico;
+	}
+	protected boolean getTerrestre() {
+		return terrestre;
+	}
+	protected boolean getVolador() {
+		return volador;
+	}
+	protected void setDepredador(boolean depredador) {
+		this.depredador = depredador;
+	}
+	protected void setDomestico(boolean domestico) {
+		this.domestico = domestico;
+	}
+	protected void setAcuatico(boolean acuatico) {
+		this.acuatico = acuatico;
+	}
+	protected void setTerrestre(boolean terrestre) {
+		this.terrestre = terrestre;
+	}
+	protected void setVolador(boolean volador) {
+		this.volador = volador;
+	}
+	
+	//Método toString de la superclase y la subclase
+	@Override
+	public String toString() {
+		return " depredador=" + depredador + ", domestico=" + domestico + ", acuatico=" + acuatico
+				+ ", terrestre=" + terrestre + ", volador=" + volador +super.toString()+" ";
+	}
+
+}
