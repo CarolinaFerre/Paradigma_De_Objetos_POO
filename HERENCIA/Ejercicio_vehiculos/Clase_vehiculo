@@ -1,0 +1,28 @@
+
+
+package menuVehiculos;
+
+import java.util.Scanner;
+
+public abstract class vehiculo {
+	
+
+
+	static Scanner sc=new Scanner(System.in);
+	protected int vehiculosCreados;
+	protected  int kmRecorridos;
+	protected static int velocidad;
+	
+	public vehiculo() {
+		this.kmRecorridos=kmRecorridos;
+		this.velocidad=velocidad;
+		
+	}
+	
+	protected int getKmRecorridos() {
+		return this.kmRecorridos;
+	}
+
+	
+
+}
