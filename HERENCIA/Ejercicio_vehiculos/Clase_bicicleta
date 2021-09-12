@@ -1,0 +1,35 @@
+
+
+package menuVehiculos;
+
+import java.util.Scanner;
+
+public class bicicleta extends vehiculo{
+	
+	protected boolean caballito;
+	
+	public bicicleta(boolean caballito) {
+		
+		this.caballito=caballito;
+		this.kmRecorridos=kmRecorridos;
+		this.velocidad=velocidad;
+	}
+	public void iniciarMarchaBici() {
+		System.out.println("Indique la velocidad");
+		this.velocidad=sc.nextInt();
+		if(this.velocidad>120) {
+			System.err.println("Usted no puede ir tan rápido con la bici, modere su velocidad");
+			
+		}else {
+			System.out.println("Usted va dentro de los limites de velocidad = "+velocidad);
+			kmRecorridos+=velocidad;
+		}
+	}
+	public void caballitoBici() {
+		if(this.caballito==true) {
+			System.out.println("Caballito realizado");
+		}else {
+			System.err.println("No se puede hacer el caballito porque usuario no quiere hacerlo");
+		}
+	}
+}
