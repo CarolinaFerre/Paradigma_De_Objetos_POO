@@ -1,0 +1,7 @@
+
+/* Ejercicio 3
+Crea las clases Animal, Mamifero, Ave. Crea,
+métodos específicos de cada clase y redefIne el/los método/s
+cuando sea necesario. Prueba las clases creadas en un programa en el que se
+instancien objetos y se les apliquen métodos.
+*/
