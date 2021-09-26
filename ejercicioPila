@@ -1,0 +1,163 @@
+
+
+/* Implementación de una Pila de enteros.
+
+Una pila es un almacén de datos en el que se sigue una política específica a la hora de introducir y sacar
+los elementos.
+Una pila sigue una política LIFO (Last In First Out), es decir, el último en entrar es el primero en salir
+(imagine un bote de pastillas).
+
+En este ejercicio se pide implementar una clase que modele el comportamiento de una pila de enteros,
+ofreciendo la siguiente funcionalidad:
+
+- La pila siempre se creará vacia.
+- Se podrán insertar elementos.
+- Se podrán sacar elementos.
+- Se podrá preguntar si la pila está vacia.
+- Se podrá reguntar si la pila está llena.
+- Se podrá saber el número de elementos actual de la pila.
+- Implemente un método imprimir que muestre los elementos de la pila.*/
+
+
+package ejerciciosdearrays;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class implementacionPila {
+static Scanner sc=new Scanner(System.in);
+
+	protected boolean vacia=false;
+	protected boolean llena=false;
+	protected int longitud;
+	static int[]pila;
+	int elementos;
+	public implementacionPila() {
+		this.longitud=10;
+		this.elementos=0;
+	}
+	public void crearPila() {
+		pila=new int[this.longitud];
+		int[]pila= {0,0,0,0,0,0,0,0,0,0};
+		System.out.println("Pila creada");
+	}
+	public void insertarElementos() {
+		System.out.println("Introduce números: ");
+		
+			for(int i=0;i<pila.length;i++) {
+			if(pila[i]==0) {	
+				pila[i]=sc.nextInt();
+				this.elementos++;
+			}else {
+				pila[i]=pila[i];
+			}
+		}
+		System.out.println("Datos introducidos correctamente");
+		vacia=false;
+	}
+	
+	public void sacarUltimoElemento() {
+		for(int i=0;i<pila.length;i++) {
+			if(pila[i]==pila[pila.length-1]) {
+				pila[i]=0;
+			}
+			
+		}
+		System.out.println("Último elemento de la pila eliminado");
+	}
+	public void pilaVacia() {
+		if((this.elementos==0)) {
+			System.out.println("La pila está vacía");
+			vacia=true;
+		}else {
+			
+			System.out.println("La pila no está vacía");
+		}
+	}
+	public void estaLleno() {
+		for(int i=0;i<pila.length;i++) {
+			if(pila[i]==0) {
+				llena=false;
+				elementos--;
+			}else {
+				pila[i]=pila[i];
+				llena=true;
+			}
+		}
+		if(this.elementos==pila.length) {
+			llena=true;
+			vacia=false;
+			System.out.println("La pila está llena");
+		}else {
+			System.out.println("La pila no está llena");
+		}
+		
+	}
+	public void VerContenido() {
+		System.out.println(Arrays.toString(pila));
+	}
+	public void numeroElementos() {
+		System.out.println("El número de elementos introducidos es "+this.elementos);
+	}
+		
+	public static void main(String[] args) {
+		
+		implementacionPila pila=new implementacionPila();
+		System.out.println("¿QUÉ QUIERE HACER");
+		System.out.println("1.Crear pila");
+		System.out.println("2.Insertar elementos");
+		System.out.println("3.Sacar último elemento");
+		System.out.println("4.Saber si la pila está vacía");
+		System.out.println("5.Saber si la pila está llena");
+		System.out.println("6.Número de elementos de la pila");
+		System.out.println("7.Ver contenido de la pila");
+		int contador=0;
+		while(contador!=12) {
+		int opcion=sc.nextInt();
+		switch(opcion) {
+		
+		case 1:
+			System.out.println("Ha seleccionado la opción crear pila");
+			pila.crearPila();
+			contador++;
+			break;
+		case 2:
+			System.out.println("Ha seleccionado la opción de insertar elementos");
+			pila.insertarElementos();
+			contador++;
+			break;
+			
+		case 3:
+			System.out.println("Ha seleccionado la opción de sacar el último elemento");
+			pila.sacarUltimoElemento();
+			contador++;
+			break;
+		case 4:
+			System.out.println("Ha seleccionado la opción de saber si la pila está vacía");
+			pila.pilaVacia();
+			contador++;
+			break;
+		case 5:
+			System.out.println("Ha seleccionado la opción de saber si la pila está llena");
+			pila.estaLleno();
+			contador++;
+			break;
+		case 6:
+			System.out.println("Ha seleccionado la opción de saber el número de elementos de la pila");
+			pila.numeroElementos();
+			contador++;
+			break;
+		case 7:
+			System.out.println("Ha seleccionado la opción de ver el contenido de la pila");
+			pila.VerContenido();
+			contador++;
+			break;
+		default:
+			System.out.println("La opción no es válida");
+			contador++;
+			}
+		}
+		
+	}
+
+}
