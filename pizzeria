@@ -1,0 +1,86 @@
+
+/* 
+ * Crea la clase Pizza con los atributos y métodos necesarios. Sobre cada pizza
+se necesita saber el tamaño - mediana o familiar - el tipo - margarita, cuatro
+quesos o funghi - y su estado - pedida o servida. La clase debe almacenar
+información sobre el número total de pizzas que se han pedido y que se
+han servido. Siempre que se crea una pizza nueva, su estado es “pedida”.
+ * 
+ * 
+ * @autor:Carolina Ferreiro*/
+import java.util.Scanner;
+
+public class pizzeria {
+
+
+static Scanner sc=new Scanner(System.in);
+//Declaración de variables
+protected String tamaño;
+protected String tipo;
+protected String estado="";
+static int contadorPedida=0;
+static int contadorServida=0;
+
+	public pizzeria(String tamaño,String tipo) {
+		this.tamaño=tamaño;
+		this.tipo=tipo;
+		this.estado=estado;
+		
+	}
+	public String pedirPizza() {
+		this.estado="pedido";
+		contadorPedida++;
+		
+		return estado;
+	}
+	public String servirPizza() {
+		this.estado="servido"; 
+		contadorServida++;
+		return estado;
+	}
+	@Override
+	public String toString() {
+		return "Información de pedido:  [tamaño=" + this.tamaño + ", tipo=" + this.tipo + "]";
+	}
+
+	
+
+	public static void main(String[] args) {
+		
+		pizzeria pedido=new pizzeria("familiar","margarita");
+		System.out.println("PEDIDO NÚMERO 1: ");
+		pedido.toString();
+		if(pedido.pedirPizza().equals("pedido")) {
+			System.out.println("Pedido realizado correctamente");
+		}
+		pizzeria pedido2=new pizzeria("mediana","cuatro quesos");
+		System.out.println("PEDIDO NÚMERO 2: ");
+		pedido.toString();
+		if(pedido2.pedirPizza().equals("pedido")) {
+			System.out.println("Pedido realizado correctamente");
+		}
+		pizzeria pedido3=new pizzeria("pequeña","funghi");
+		System.out.println("PEDIDO NÚMERO 3: ");
+		if(pedido3.pedirPizza().equals("pedido")) {
+			System.out.println("Pedido realizado correctamente");
+		}
+		pizzeria pedido4=new pizzeria("familiar","barbacora");
+		System.out.println("PEDIDO NÚMERO 4: ");
+		if(pedido4.pedirPizza().equals("pedido")) {
+			System.out.println("Pedido realizado correctamente");
+		}
+		pizzeria pedido5=new pizzeria("mediana","kevap");
+		System.out.println("PEDIDO NÚMERO 5: ");
+		if(pedido5.servirPizza().equals("servido")) {
+			System.out.println("Ya tiene lista su pizza");
+		}
+		pizzeria pedido6=new pizzeria("pequeña","carbonara");
+		System.out.println("PEDIDO NÚMERO 6: ");
+		if(pedido6.servirPizza().equals("servido")) {
+			System.out.println("Ya tiene lista su pizza");
+		}
+		System.out.println("El total de pizzas pedidas es "+contadorPedida);
+		System.out.println("El total de pizzas servidas es "+contadorServida);
+	}
+
+}
